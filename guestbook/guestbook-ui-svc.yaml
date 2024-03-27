@@ -9,3 +9,23 @@ spec:
     targetPort: 80
   selector:
     app: guestbook-ui
+---
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guestbook-ui
+  namespace: default
+spec:
+  rules:
+  - host: guestbook-ui.local.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guestbook-ui
+            port:
+              number: 80
+
